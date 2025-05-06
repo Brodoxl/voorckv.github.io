@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE FUNCTION - About</title>
+    <style>
+        /* Base styling (Same as main.html and theband.html) */
+        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@400;700&display=swap');
+        
+        :root {
+            --primary: #ff2e2e; /* Aggressive red */
+            --secondary: #000000; /* Black */
+            --accent: #f1c40f; /* Sharp yellow */
+            --light: #f4f4f4; /* Off-white */
+            --dark: #222222; /* Dark grey */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+             /* Subtle chaotic background pattern */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23333333' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 20px;
+            overflow: hidden;
+        }
+
+        /* Header styling */
+        header {
+            background: var(--secondary);
+            color: var(--light);
+            padding: 1rem 0;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-shadow: 2px 2px 0 var(--secondary), 4px 4px 0 var(--accent);
+            transform: rotate(-3deg);
+            user-select: none; /* Prevent text selection */
+        }
+        
+        header .logo span {
+            color: var(--light);
+            text-shadow: 1px 1px 0 var(--dark);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            transition: left 0.3s ease;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary);
+        }
+        
+        nav ul li a:hover::before,
+        nav ul li a.active::before {
+           left: 0;
+        }
+        
+        /* Main Content Area */
+        main {
+            padding: 3rem 0;
+        }
+        
+        .page-title {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 3rem;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 0 var(--primary);
+            transform: skew(-5deg);
+        }
+        
+        .about-content {
+            background: rgba(0,0,0, 0.5); /* Semi-transparent black */
+            padding: 2rem;
+            border-left: 5px solid var(--primary);
+            margin-bottom: 2rem;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .about-content h2 {
+            font-family: 'Permanent Marker', cursive;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            border-bottom: 2px dashed var(--accent);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .about-content p {
+            margin-bottom: 1rem;
+            color: var(--light);
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        /* Footer styling */
+        footer {
+            background: var(--secondary);
+            color: var(--light);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 3px solid var(--primary);
+        }
+        
+        footer .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        
+        footer .footer-links a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        
+        footer .copyright {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #aaa; /* Lighter grey for copyright */
+        }
+
+        /* Anarchy Symbol */
+        .anarchy-symbol {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 3rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: transform 0.5s ease, color 0.3s ease;
+            user-select: none;
+            z-index: 1000;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+        }
+
+        .anarchy-symbol:hover {
+            color: var(--accent);
+            transform: scale(1.1) rotate(15deg);
+        }
+        
+        /* Fade-in Animation */
+        section, .about-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.fade-in, .about-content.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+             <div class="logo">THE <span>FUNCTION</span></div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="band.html">The Band</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="music.html">Music</a></li>
+                    <li><a href="agenda.html">Agenda</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="page-title">ABOUT THE FUNCTION</h1>
+
+            <section class="about-content fade-in">
+                <h2>Oprichting en Vroege Jaren</h2>
+                <p>De band werd in de vroege jaren 70 gevormd door een diverse groep muzikanten die hun ongenoegen uitten over het gevestigde systeem en de culturele normen van die tijd. Oorspronkelijk ontmoetten Felix Moon (drums), Theo Lux (lead guitar), Élise Pommet (lead-zanger), Fred Vanderbelt-Guinney (support-zanger en bas) en Simon – wiens precieze rol vaak als de 'multi-instrumentalist' werd omschreven – elkaar in de bruisende Londense muziekscene. Hun eerste repetities vonden plaats in een kleine zolderstudio in East London, waar ze experimenteerden met een mix van punk, rock en avant-garde geluiden.</p>
+            </section>
+
+            <section class="about-content fade-in" style="transition-delay: 0.1s;">
+                <h2>Invloeden en Muzikale Stijl</h2>
+                <p>De Function liet zich inspireren door een breed scala aan invloeden. De rauwe energie van punkbands als The Clash en Sex Pistols werd gecombineerd met de experimentele aanpak van art-rock pioniers zoals David Bowie en Roxy Music. Daarnaast waren progressieve rockbands en de rebellie tegen de gevestigde orde belangrijke elementen in hun muzikale DNA. Deze diverse invloeden resulteerden in een uniek geluid dat zowel de harde, directe energie van punk als de complexe composities en theatrale presentatie van art-rock omvatte. Hun stijl is Alternative-/Art-rock met thema’s gerelateerd aan politiek en sociale problemen. De klankkleur is conceptueel met verwarrende ritmes. De muziek zit vol energie en woede.</p>
+            </section>
+            
+            <section class="about-content fade-in" style="transition-delay: 0.2s;">
+                <h2>Doorbraak en Impact</h2>
+                <p>Hun debuutalbum, dat in 1975 uitkwam, werd alom geprezen om zijn vernieuwende benadering van sociale en politieke thema's, en markeerde de opkomst van de band in een tijd waarin de Britse muziekcultuur werd gekenmerkt door verandering en experimentatie. De Function wist met hun scherpe teksten en gedurfde muzikale keuzes een trouwe schare fans te winnen, die zich aangetrokken voelden tot hun onconventionele stijl en kritische blik op de maatschappij.</p>
+             </section>
+
+            <section class="about-content fade-in" style="transition-delay: 0.3s;">
+                <h2>Legacy</h2>
+                 <p>Hoewel de band in de loop van de jaren 70 te maken kreeg met interne spanningen en de veranderende muziekscene, blijft The Function een belangrijk voorbeeld van de culturele en muzikale revolutie die die tijd kenmerkte. Hun combinatie van punk-energie met een verfijnde art-rock esthetiek heeft latere generaties beïnvloed en blijft een inspiratiebron voor bands die zich verzetten tegen het establishment.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="band.html">The Band</a>
+                <a href="about.html">About</a>
+                <a href="music.html">Music</a>
+                <a href="agenda.html">Agenda</a>
+                <a href="reviews.html">Reviews</a>
+            </div>
+            <p class="copyright">© 2025 The Function. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="anarchy-symbol">Ⓐ</div>
+
+    <script>
+        // Anarchy symbol click animation
+        document.querySelector('.anarchy-symbol').addEventListener('click', function() {
+            this.style.transform = 'rotate(360deg) scale(1.5)';
+            setTimeout(() => {
+                this.style.transform = 'rotate(0) scale(1)';
+            }, 500);
+        });
+
+        // Add fade-in animation for sections on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+
+        document.querySelectorAll('.about-content').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Add current page highlight in navigation
+        const currentPage = window.location.pathname.split('/').pop() || 'about.html'; // Default if empty
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            const linkPage = link.getAttribute('href').split('/').pop();
+             if (linkPage === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

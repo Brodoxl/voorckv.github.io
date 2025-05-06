@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE FUNCTION - Reviews</title>
+    <style>
+        /* Base styling (Same as other pages) */
+         @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@400;700&display=swap');
+        :root { --primary: #ff2e2e; --secondary: #000000; --accent: #f1c40f; --light: #f4f4f4; --dark: #222222; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--dark); color: var(--light); line-height: 1.6; position: relative; overflow-x: hidden; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23333333' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .container { max-width: 1100px; margin: auto; padding: 0 20px; overflow: hidden; }
+
+        /* Header styling (Same as other pages) */
+        header { background: var(--secondary); color: var(--light); padding: 1rem 0; border-bottom: 3px solid var(--primary); }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        header .logo { font-family: 'Permanent Marker', cursive; font-size: 2.5rem; color: var(--primary); text-shadow: 2px 2px 0 var(--secondary), 4px 4px 0 var(--accent); transform: rotate(-3deg); user-select: none; }
+        header .logo span { color: var(--light); text-shadow: 1px 1px 0 var(--dark); }
+        nav ul { list-style: none; display: flex; }
+        nav ul li { margin-left: 20px; }
+        nav ul li a { color: var(--light); text-decoration: none; font-weight: bold; padding: 5px 10px; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        nav ul li a::before { content: ''; position: absolute; bottom: 0; left: -100%; width: 100%; height: 2px; background: var(--primary); transition: left 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { color: var(--primary); }
+        nav ul li a:hover::before, nav ul li a.active::before { left: 0; }
+
+        /* Main Content Area */
+        main { padding: 3rem 0; }
+        .page-title { font-family: 'Permanent Marker', cursive; font-size: 3rem; color: var(--accent); text-align: center; margin-bottom: 3rem; text-shadow: 2px 2px 0 var(--primary); transform: skew(-5deg); }
+
+        /* Reviews Section */
+        .reviews-grid {
+            display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: rgba(255, 255, 255, 0.05); /* Slightly visible background */
+            padding: 1.5rem;
+             border: 1px solid var(--accent); /* Dashed border */
+             border-left: 5px solid var(--primary); /* Thick left border */
+             position: relative; /* For pseudo-elements */
+             transition: transform 0.3s ease, box-shadow 0.3s ease;
+             overflow: hidden; /* Contain pseudo-elements */
+        }
+        
+        .review-card:hover {
+             transform: rotate(1deg) scale(1.02); /* Slight tilt and scale on hover */
+            box-shadow: 0 5px 15px rgba(241, 196, 15, 0.3); /* Accent color shadow */
+        }
+
+        .review-card::before { /* Ripped paper effect top */
+             content: '';
+             position: absolute;
+             top: -1px;
+             left: 0;
+             width: 100%;
+             height: 10px;
+             background: linear-gradient(rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+             /* Simulate a tear - more complex effects possible */
+         }
+
+        .review-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--light);
+            position: relative;
+            padding-left: 25px; /* Space for quote mark */
+        }
+        
+         .review-quote::before { /* Large quote mark */
+             content: '“';
+             font-family: 'Permanent Marker', cursive;
+             font-size: 3rem;
+             color: var(--primary);
+             position: absolute;
+             left: -5px;
+             top: -10px;
+             opacity: 0.8;
+         }
+
+        .review-author {
+            text-align: right;
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 1rem;
+            margin-top: 1rem;
+            border-top: 1px dashed var(--primary);
+            padding-top: 0.5rem;
+        }
+        
+         .review-author span { /* Publication/source */
+             display: block;
+             font-weight: normal;
+             font-style: italic;
+             color: #bbb; /* Lighter grey */
+             font-size: 0.9rem;
+         }
+
+        /* Footer styling (Same as other pages) */
+        footer { background: var(--secondary); color: var(--light); text-align: center; padding: 2rem 0; margin-top: 3rem; border-top: 3px solid var(--primary); }
+        footer .footer-links a { color: var(--accent); text-decoration: none; margin: 0 15px; transition: color 0.3s ease; }
+        footer .footer-links a:hover { color: var(--primary); text-decoration: underline; }
+        footer .copyright { margin-top: 1rem; font-size: 0.9rem; color: #aaa; }
+
+        /* Anarchy Symbol (Same as other pages) */
+        .anarchy-symbol { position: fixed; bottom: 20px; right: 20px; font-size: 3rem; color: var(--primary); cursor: pointer; transition: transform 0.5s ease, color 0.3s ease; user-select: none; z-index: 1000; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); }
+        .anarchy-symbol:hover { color: var(--accent); transform: scale(1.1) rotate(15deg); }
+        
+         /* Fade-in Animation */
+        .review-card {
+             opacity: 0;
+             transform: scale(0.9);
+             transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .review-card.fade-in {
+             opacity: 1;
+             transform: scale(1);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+             <div class="logo">THE <span>FUNCTION</span></div>
+             <nav>
+                 <ul>
+                     <li><a href="index.html">Home</a></li>
+                     <li><a href="band.html">The Band</a></li>
+                     <li><a href="about.html">About</a></li>
+                     <li><a href="music.html">Music</a></li>
+                     <li><a href="agenda.html">Agenda</a></li>
+                     <li><a href="reviews.html">Reviews</a></li>
+                 </ul>
+             </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="page-title">WHAT THEY SAY</h1>
+
+            <section class="reviews-grid">
+                <div class="review-card fade-in">
+                     <p class="review-quote">A blistering assault on the senses and the establishment. The Function channels pure, unadulterated punk fury into complex, thought-provoking art-rock. Essential listening for the disillusioned.</p>
+                    <p class="review-author">Johnny Rotten-Soundalike <span>- Punk Chronicle Weekly</span></p>
+                </div>
+
+                <div class="review-card fade-in" style="transition-delay: 0.1s;">
+                    <p class="review-quote">Forget your polished pop drivel. This is the real deal – raw, intelligent, and unapologetically loud. Their live show is a chaotic masterpiece.</p>
+                    <p class="review-author">Sid Vicious' Ghost <span>- Anarchy Music Mag</span></p>
+                 </div>
+                 
+                 <div class="review-card fade-in" style="transition-delay: 0.2s;">
+                     <p class="review-quote">Confusing rhythms? Check. Political rage? Check. Élise Pommet's vocals could strip paint. 'Riot, Riot, Riot' is the soundtrack to the revolution we need.</p>
+                    <p class="review-author">Angry Critic Mcgee <span>- The Daily Noise</span></p>
+                 </div>
+
+                 <div class="review-card fade-in" style="transition-delay: 0.3s;">
+                    <p class="review-quote">While drawing from punk legends, The Function carves its own path. It's Bowie meets The Clash in a dark alley, and the result is thrillingly unpredictable.</p>
+                    <p class="review-author">Art School Dropout <span>- Avant-Garde Times</span></p>
+                </div>
+                
+                 <div class="review-card fade-in" style="transition-delay: 0.4s;">
+                     <p class="review-quote">Saw them live last week. My ears are still ringing, and my perspective on the monarchy is forever changed. Go see them. Now.</p>
+                    <p class="review-author">Random Fan <span>- Live Show Review Blog</span></p>
+                 </div>
+                 
+                 <div class="review-card fade-in" style="transition-delay: 0.5s;">
+                    <p class="review-quote">Not for the faint of heart, or for fans of predictable three-chord punk. The Function demands attention and rewards it with layers of sonic intensity and lyrical depth.</p>
+                     <p class="review-author">Serious Music Person <span>- Rock Intellectual Monthly</span></p>
+                 </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+         <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="band.html">The Band</a>
+                <a href="about.html">About</a>
+                <a href="music.html">Music</a>
+                <a href="agenda.html">Agenda</a>
+                <a href="reviews.html">Reviews</a>
+            </div>
+            <p class="copyright">© 2025 The Function. All rights reserved.</p>
+         </div>
+    </footer>
+
+    <div class="anarchy-symbol">Ⓐ</div>
+
+    <script>
+         // Anarchy symbol click animation
+         document.querySelector('.anarchy-symbol').addEventListener('click', function() {
+             this.style.transform = 'rotate(360deg) scale(1.5)';
+             setTimeout(() => { this.style.transform = 'rotate(0) scale(1)'; }, 500);
+         });
+         
+         // Add fade-in animation for review cards on scroll
+         const observer = new IntersectionObserver((entries) => {
+             entries.forEach((entry, index) => {
+                 if (entry.isIntersecting) {
+                    // Apply fade-in class and potentially staggered delay
+                     entry.target.style.transitionDelay = `${index * 0.05}s`; // Stagger effect
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target); // Optional: stop observing once animated
+                 }
+             });
+         }, { threshold: 0.1 });
+
+        document.querySelectorAll('.review-card').forEach(el => {
+             observer.observe(el);
+         });
+
+         // Add current page highlight in navigation
+         const currentPage = window.location.pathname.split('/').pop() || 'reviews.html';
+         document.querySelectorAll('nav ul li a').forEach(link => {
+             const linkPage = link.getAttribute('href').split('/').pop();
+             if (linkPage === currentPage) {
+                 link.classList.add('active');
+            }
+         });
+    </script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE FUNCTION - Agenda</title>
+    <style>
+        /* Base styling (Same as other pages) */
+         @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@400;700&display=swap');
+        :root { --primary: #ff2e2e; --secondary: #000000; --accent: #f1c40f; --light: #f4f4f4; --dark: #222222; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--dark); color: var(--light); line-height: 1.6; position: relative; overflow-x: hidden; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23333333' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .container { max-width: 1100px; margin: auto; padding: 0 20px; overflow: hidden; }
+
+        /* Header styling (Same as other pages) */
+        header { background: var(--secondary); color: var(--light); padding: 1rem 0; border-bottom: 3px solid var(--primary); }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        header .logo { font-family: 'Permanent Marker', cursive; font-size: 2.5rem; color: var(--primary); text-shadow: 2px 2px 0 var(--secondary), 4px 4px 0 var(--accent); transform: rotate(-3deg); user-select: none; }
+        header .logo span { color: var(--light); text-shadow: 1px 1px 0 var(--dark); }
+        nav ul { list-style: none; display: flex; }
+        nav ul li { margin-left: 20px; }
+        nav ul li a { color: var(--light); text-decoration: none; font-weight: bold; padding: 5px 10px; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        nav ul li a::before { content: ''; position: absolute; bottom: 0; left: -100%; width: 100%; height: 2px; background: var(--primary); transition: left 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { color: var(--primary); }
+        nav ul li a:hover::before, nav ul li a.active::before { left: 0; }
+
+        /* Main Content Area */
+        main { padding: 3rem 0; }
+        .page-title { font-family: 'Permanent Marker', cursive; font-size: 3rem; color: var(--accent); text-align: center; margin-bottom: 3rem; text-shadow: 2px 2px 0 var(--primary); transform: skew(-5deg); }
+        
+        /* Agenda Section */
+        .agenda-container {
+            background: rgba(0,0,0, 0.6);
+            padding: 2rem;
+            border: 3px dashed var(--primary);
+            box-shadow: 0 0 20px rgba(255, 46, 46, 0.5); /* Red glow */
+        }
+
+        .agenda-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .agenda-header h2 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .tour-dates {
+            list-style: none;
+        }
+
+        .tour-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 5px solid var(--accent);
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        
+        .tour-item:hover {
+            background: rgba(255, 46, 46, 0.2); /* Red tint on hover */
+            transform: translateX(5px);
+        }
+
+        .tour-info {
+            flex-grow: 1;
+            margin-right: 1rem;
+        }
+
+        .tour-date {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .tour-venue {
+            display: block;
+            color: var(--light);
+            font-size: 1.1rem;
+        }
+
+        .tour-location {
+            display: block;
+            color: #ccc; /* Lighter grey */
+            font-size: 1rem;
+        }
+
+        .ticket-button {
+            background: var(--accent);
+            color: var(--secondary);
+            padding: 8px 15px;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid var(--secondary);
+            transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+             font-family: 'Roboto', sans-serif;
+             text-transform: uppercase;
+             cursor: pointer;
+        }
+        
+        .ticket-button:hover {
+            background: var(--primary);
+            color: var(--light);
+            border-color: var(--accent);
+             transform: scale(1.05);
+        }
+        
+        .no-shows {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        /* Footer styling (Same as other pages) */
+        footer { background: var(--secondary); color: var(--light); text-align: center; padding: 2rem 0; margin-top: 3rem; border-top: 3px solid var(--primary); }
+        footer .footer-links a { color: var(--accent); text-decoration: none; margin: 0 15px; transition: color 0.3s ease; }
+        footer .footer-links a:hover { color: var(--primary); text-decoration: underline; }
+        footer .copyright { margin-top: 1rem; font-size: 0.9rem; color: #aaa; }
+
+        /* Anarchy Symbol (Same as other pages) */
+        .anarchy-symbol { position: fixed; bottom: 20px; right: 20px; font-size: 3rem; color: var(--primary); cursor: pointer; transition: transform 0.5s ease, color 0.3s ease; user-select: none; z-index: 1000; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); }
+        .anarchy-symbol:hover { color: var(--accent); transform: scale(1.1) rotate(15deg); }
+        
+         /* Fade-in Animation */
+        .agenda-container {
+             opacity: 0;
+             transform: translateY(20px);
+             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .agenda-container.fade-in {
+             opacity: 1;
+             transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+             <div class="logo">THE <span>FUNCTION</span></div>
+             <nav>
+                 <ul>
+                     <li><a href="index.html">Home</a></li>
+                     <li><a href="band.html">The Band</a></li>
+                     <li><a href="about.html">About</a></li>
+                     <li><a href="music.html">Music</a></li>
+                     <li><a href="agenda.html">Agenda</a></li>
+                     <li><a href="reviews.html">Reviews</a></li>
+                 </ul>
+             </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="page-title">LIVE SHOWS</h1>
+
+            <section class="agenda-container">
+                <div class="agenda-header">
+                    <h2>Upcoming Tour Dates</h2>
+                     <p>Catch us live! Get ready for pure energy and raw sound.</p>
+                </div>
+
+                <ul class="tour-dates">
+                     <li class="tour-item">
+                         <div class="tour-info">
+                             <span class="tour-date">June 15, 2025</span>
+                            <span class="tour-venue">The Underground</span>
+                            <span class="tour-location">London, UK</span>
+                        </div>
+                         <a href="#" class="ticket-button">Tickets</a>
+                    </li>
+                     <li class="tour-item">
+                        <div class="tour-info">
+                            <span class="tour-date">June 21, 2025</span>
+                             <span class="tour-venue">Rebellion Club</span>
+                             <span class="tour-location">Manchester, UK</span>
+                         </div>
+                        <a href="#" class="ticket-button">Tickets</a>
+                    </li>
+                    <li class="tour-item">
+                        <div class="tour-info">
+                             <span class="tour-date">July 5, 2025</span>
+                            <span class="tour-venue">Paradiso (Small Hall)</span>
+                            <span class="tour-location">Amsterdam, NL</span>
+                         </div>
+                         <a href="#" class="ticket-button">Tickets</a>
+                    </li>
+                     <li class="tour-item">
+                         <div class="tour-info">
+                            <span class="tour-date">July 12, 2025</span>
+                             <span class="tour-venue">SO36</span>
+                             <span class="tour-location">Berlin, DE</span>
+                         </div>
+                         <a href="#" class="ticket-button sold-out" style="background: #555; color: #aaa; cursor: not-allowed;">Sold Out</a> </li>
+                     </ul>
+                 
+                 </section>
+        </div>
+    </main>
+
+    <footer>
+         <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="band.html">The Band</a>
+                <a href="about.html">About</a>
+                <a href="music.html">Music</a>
+                <a href="agenda.html">Agenda</a>
+                <a href="reviews.html">Reviews</a>
+            </div>
+             <p class="copyright">© 2025 The Function. All rights reserved.</p>
+        </div>
+    </footer>
+
+     <div class="anarchy-symbol">Ⓐ</div>
+
+    <script>
+        // Anarchy symbol click animation
+        document.querySelector('.anarchy-symbol').addEventListener('click', function() {
+            this.style.transform = 'rotate(360deg) scale(1.5)';
+            setTimeout(() => { this.style.transform = 'rotate(0) scale(1)'; }, 500);
+        });
+        
+         // Add fade-in animation for sections on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+         }, { threshold: 0.1 });
+
+        document.querySelectorAll('.agenda-container').forEach(el => {
+             observer.observe(el);
+         });
+         
+        // Add current page highlight in navigation
+        const currentPage = window.location.pathname.split('/').pop() || 'agenda.html';
+        document.querySelectorAll('nav ul li a').forEach(link => {
+             const linkPage = link.getAttribute('href').split('/').pop();
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
